@@ -18,7 +18,7 @@ return [
     ],
     [
         'name' => 'Pound sterling',
-        'code' => 'gpb',
+        'code' => 'gbp',
         'symbol' => '£'
     ],
     [

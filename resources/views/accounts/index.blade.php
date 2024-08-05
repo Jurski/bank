@@ -8,7 +8,7 @@
                     @foreach ($accounts as $account)
                         <li class="py-2 border-b">
                             <a href="{{ route('accounts.show', $account->id) }}">
-                                {{ $account->account_number }} - {{ $account->type }} - {{ $account->currency }} - {{ $account->amount }}
+                                {{ $account->account_number }} - {{ $account->type }} - {{ $account->currency }} - {{ $account->balance/100 }}
                             </a>
                         </li>
                     @endforeach

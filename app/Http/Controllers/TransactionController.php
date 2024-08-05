@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransactionRequest;
 use App\Models\Account;
+use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -20,16 +20,21 @@ class TransactionController extends Controller
     public function store(StoreTransactionRequest $request): RedirectResponse
     {
         // TODO:: Convertation for different currencies
-        // TODO:: Create transaction model and store it in DB
+        // TODO:: refactor DB:transaction into service? also try catch and research transaction begin?
         DB::transaction(function () use ($request) {
-            $fromAccount = Account::findOrFail($request->sender); // TODO:: create findAccount on model
-            $toAccount = Account::where('account_number', $request->receiver)->firstOrFail();
+            $sender = Account::findOrFail($request->sender); // TODO:: create findAccount on model
+            $receiver = Account::where('account_number', $request->receiver)->firstOrFail();
 
-            $fromAccount->amount -= $request->amount; // TODO:: create single method on model for this
-            $toAccount->amount += $request->amount;
+            $sender->balance -= $request->amount * 100; // TODO:: create single method on model for this
+            $receiver->balance += $request->amount * 100;
 
-            $fromAccount->save();
-            $toAccount->save();
+            $sender->save();
+            $receiver->save();
+
+            $transaction = Transaction::create(['amount' => $request->amount]);
+
+            $transaction->accounts()->attach($sender->id, ['type' => 'sender']);
+            $transaction->accounts()->attach($receiver->id, ['type' => 'receiver']);
         });
 
         return redirect('/accounts');

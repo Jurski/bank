@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('account_number')->unique();
             $table->string('type');
             $table->string('currency');
-            $table->float('amount')->default(1000.00);
+            $table->integer('balance')->default(100000);
             $table->timestamps();
         });
     }

@@ -20,8 +20,7 @@ class Account extends Model
 
     public function transactions(): BelongsToMany
     {
-        return $this->belongsToMany(Transaction::class)
-            ->withPivot('type')
-            ->withTimestamps();
+        return $this->belongsToMany(Transaction::class);
+            //->withPivot('type');
     }
 }

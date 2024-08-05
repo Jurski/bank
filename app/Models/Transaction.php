@@ -10,10 +10,12 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['amount'];
+
     public function accounts(): BelongsToMany
     {
         return $this->belongsToMany(Account::class)
-            ->withPivot('type')
-            ->withTimestamps();
+            ->using(CustomPivot::class,)
+            ->withPivot('type');// TODO:: disalble timestamps for pivot tables
     }
 }
