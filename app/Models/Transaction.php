@@ -10,12 +10,12 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['amount'];
+    protected $fillable = ['base_currency', 'amount',  'converted_currency', 'converted_amount']; // TODO:: refactor to guarded []?
 
     public function accounts(): BelongsToMany
     {
         return $this->belongsToMany(Account::class)
             ->using(CustomPivot::class,)
-            ->withPivot('type');// TODO:: disalble timestamps for pivot tables
+            ->withPivot('type');
     }
 }

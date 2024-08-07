@@ -3,42 +3,37 @@
 return [
     'popular' => [
         'name' => 'Euro',
-        'code' => 'eur',
+        'code' => 'EUR',
         'symbol' => '€'
     ],
     [
         'name' => 'US Dollar',
-        'code' => 'usd',
+        'code' => 'USD',
         'symbol' => '$',
     ],
     [
-        'name' => 'Japanese Yen',
-        'code' => 'jpy',
-        'symbol' => '¥',
-    ],
-    [
         'name' => 'Pound sterling',
-        'code' => 'gbp',
+        'code' => 'GBP',
         'symbol' => '£'
     ],
     [
         'name' => 'Swiss Franc',
-        'code' => 'chf',
+        'code' => 'CHF',
         'symbol' => 'CHF'
     ],
     [
         'name' => 'Canadian Dollar',
-        'code' => 'cad',
+        'code' => 'CAD',
         'symbol' => 'C$',
     ],
     [
         'name' => 'Australian Dollar',
-        'code' => 'aud',
+        'code' => 'AUD',
         'symbol' => 'A$',
     ],
     [
         'name' => 'Chinese Yuan',
-        'code' => 'cny',
+        'code' => 'CNY',
         'symbol' => '¥',
     ]
 ];

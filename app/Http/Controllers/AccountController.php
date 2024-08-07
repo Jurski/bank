@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAccountRequest;
 use App\Models\Account;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -31,12 +30,14 @@ class AccountController extends Controller
 
     public function index(): View
     {
-        $accounts = Account::all()->where('user_id', auth()->id());
+        $accounts = Account::where('user_id', auth()->id())->get(); // TODO:: needs to be without all for optimization
         return view('accounts.index', ['accounts' => $accounts]);
     }
 
-    public function show(Account $account): View
+    public function show(int $id): View
     { // TODO:: inline gate and define it in appserviceprovider
+        $account = Account::with('transactions')->findOrFail($id); // TODO:: paginate for transactions??
+
         return view('accounts.show', ['account' => $account]);
     }
 }

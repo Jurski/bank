@@ -3,12 +3,24 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
-//Route::get('/test', function() {
-//    $acc = \App\Models\Account::where('account_number', '17bbc4c7-0404-4446-8597-c380bc8e5460')->first();
-//    return gettype($acc->amount);
-//});
+Route::get('/test', function() {
+    $responseBody = Http::get('https://www.bank.lv/vk/ecb.xml')->body();
+    $currencies = simplexml_load_string($responseBody);
+
+    foreach($currencies->Currencies->Currency as $currency) {
+        $symbol = (string)$currency->ID;
+        $rate = (float)$currency->Rate;
+
+        $intRate = intval($rate*10000);
+
+        Cache::put($symbol, $intRate, now()->addDay());
+    }
+    dd('done!');
+});
 
 
 Route::get('/', function () {

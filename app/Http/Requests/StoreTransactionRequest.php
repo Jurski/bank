@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\SufficientFunds;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTransactionRequest extends FormRequest
@@ -23,7 +24,12 @@ class StoreTransactionRequest extends FormRequest
     {
         return [
             'sender' => 'required',
-            'amount' => 'required|numeric|min:0.01',
+            'amount' => [
+                'required',
+                'numeric',
+                'min:0.01',
+                new SufficientFunds($this->input('amount'), $this->input('sender'))
+            ],
             'receiver' => ['required', 'uuid', 'exists:accounts,account_number'],
         ];
     }

@@ -14,7 +14,10 @@ return new class extends Migration {
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('base_currency');
             $table->integer('amount');
+            $table->string('converted_currency')->nullable();
+            $table->integer('converted_amount')->nullable();
             $table->timestamps();
         });
 
