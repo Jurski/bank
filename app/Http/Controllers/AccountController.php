@@ -30,7 +30,7 @@ class AccountController extends Controller
 
     public function index(): View
     {
-        $accounts = Account::where('user_id', auth()->id())->get(); // TODO:: needs to be without all for optimization
+        $accounts = Account::where('user_id', auth()->id())->get();
         return view('accounts.index', ['accounts' => $accounts]);
     }
 
