@@ -18,7 +18,7 @@ class AccountController extends Controller
 
     public function store(StoreAccountRequest $request): RedirectResponse
     {
-        $account = Account::create([
+        Account::create([
             'user_id' => auth()->id(),
             'account_number' => (string)Str::uuid(),
             'type' => $request->type,
@@ -34,10 +34,13 @@ class AccountController extends Controller
         return view('accounts.index', ['accounts' => $accounts]);
     }
 
-    public function show(int $id): View
-    { // TODO:: inline gate and define it in appserviceprovider
-        $account = Account::with('transactions')->findOrFail($id); // TODO:: paginate for transactions??
+    public function show(Account $account): View
+    {
+        $transactions = $account->transactions()->paginate(10);
 
-        return view('accounts.show', ['account' => $account]);
+        return view('accounts.show', [
+            'account' => $account,
+            'transactions' => $transactions
+        ]);
     }
 }

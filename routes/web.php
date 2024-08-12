@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/accounts/transfer', [TransactionController::class, 'create'])->name('transaction.create');
     Route::post('/transactions', [TransactionController::class, 'store']);
-    Route::get('/accounts/{account}', [AccountController::class, 'show'])->name('accounts.show');
+    Route::get('/accounts/{account}', [AccountController::class, 'show'])->can('view', 'account')->name('accounts.show');
 });
 
 
