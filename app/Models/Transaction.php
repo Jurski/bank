@@ -10,7 +10,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['base_currency', 'amount',  'converted_currency', 'converted_amount']; // TODO:: refactor to guarded []?
+    protected $guarded = [];
 
     public function accounts(): BelongsToMany
     {

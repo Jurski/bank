@@ -1,7 +1,6 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <h2>{{ucfirst($account->type)}} Account {{$account->account_number}}</h2>
             @if($transactions->isEmpty())
                 <p class="text-center text-gray-500">No transactions.</p>
             @else
@@ -35,7 +34,7 @@
                             @foreach ($transactions as $transaction)
 
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $transaction->pivot->type }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $transaction->type }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $transaction->base_currency }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $transaction->amount / 100 }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $transaction->created_at }}</td>
@@ -51,6 +50,7 @@
                         </table>
                         {{ $transactions->links() }}
                     </div>
+
                 </div>
             @endif
         </div>

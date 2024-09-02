@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Rules\SufficientFunds;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTransactionRequest extends FormRequest
+class StoreCryptocurrencyTransactionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +23,13 @@ class StoreTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sender' => 'required',
+            'account' => 'required',
             'amount' => [
                 'required',
                 'numeric',
-                'min:0.01',
-                new SufficientFunds($this->input('amount'), $this->input('sender'))
-            ],
-            'receiver' => ['required', 'uuid', 'exists:accounts,account_number'],
+                'min:10',
+                new SufficientFunds($this->input('amount'), $this->input('account'))
+            ]
         ];
     }
 }

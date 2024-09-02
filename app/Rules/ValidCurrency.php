@@ -22,7 +22,7 @@ class ValidCurrency implements ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if ($this->type === 'investment' && $value !== 'usd') {
+        if ($this->type === 'investment' && $value !== 'USD') {
             $fail('The :attribute for investment account can only be USD.');
         }
     }

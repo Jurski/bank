@@ -9,23 +9,25 @@ use Illuminate\Contracts\Validation\ValidationRule;
 class SufficientFunds implements ValidationRule
 {
     protected float $amount;
-    protected int $senderId;
+    protected int $accountId;
 
-    public function __construct(float $amount, int $senderId) {
+    public function __construct(float $amount, int $accountId)
+    {
         $this->amount = $amount;
-        $this->senderId = $senderId;
+        $this->accountId = $accountId;
     }
+
     /**
      * Run the validation rule.
      *
-     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     * @param \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $sender = Account::find($this->senderId);
+        $account = Account::find($this->accountId);
 
-        if($sender->balance < $this->amount * 100) {
-            $fail('Insufficient funds for transfer.');
+        if ($account->balance < $this->amount * 100) {
+            $fail('Insufficient funds for operation.');
         }
     }
 }

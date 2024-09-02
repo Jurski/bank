@@ -36,7 +36,7 @@ class AccountController extends Controller
 
     public function show(Account $account): View
     {
-        $transactions = $account->transactions()->paginate(10);
+        $transactions = $account->transactions()->paginate(5);
 
         return view('accounts.show', [
             'account' => $account,
